@@ -3,10 +3,10 @@ use std::{
     io::{BufRead, BufReader},
 };
 
+use advent_of_code2024::start_day;
 use anyhow::Result;
 use code_timing_macros::time_snippet;
 use const_format::concatcp;
-use AdventOfCode2024::start_day;
 const DAY: &str = "NN";
 const INPUT_FILE: &str = concatcp!("input/", DAY, ".txt");
 
