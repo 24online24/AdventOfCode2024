@@ -25,11 +25,24 @@ fn main() -> Result<()> {
     println!("=== Part 1 ===");
 
     fn part1<R: BufRead>(reader: R) -> Result<usize> {
-        let answer = reader.lines().flatten().count();
-        Ok(answer)
+        let mut list1 = Vec::new();
+        let mut list2 = Vec::new();
+        reader.lines().for_each(|line| {
+            let l = line.unwrap();
+            let values = l.split_whitespace().collect::<Vec<&str>>();
+            list1.push(values[0].parse::<i32>().unwrap());
+            list2.push(values[1].parse::<i32>().unwrap());
+        });
+        list1.sort();
+        list2.sort();
+        let mut dif = 0;
+        for i in 0..list1.len() {
+            dif += (list1[i] - list2[i]).unsigned_abs();
+        }
+        Ok(dif as usize)
     }
 
-    assert_eq!(0, part1(BufReader::new(TEST.as_bytes()))?);
+    assert_eq!(11, part1(BufReader::new(TEST.as_bytes()))?);
 
     let input_file = BufReader::new(File::open(INPUT_FILE)?);
     let result = time_snippet!(part1(input_file)?);
