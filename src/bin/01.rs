@@ -51,7 +51,36 @@ fn main() -> Result<()> {
     println!("\n=== Part 2 ===");
 
     fn part2<R: BufRead>(reader: R) -> Result<usize> {
-        Ok(0)
+        let mut list1 = Vec::new();
+        let mut list2 = Vec::new();
+        reader.lines().for_each(|line| {
+            let l = line.unwrap();
+            let values = l.split_whitespace().collect::<Vec<&str>>();
+            list1.push(values[0].parse::<usize>().unwrap());
+            list2.push(values[1].parse::<usize>().unwrap());
+        });
+        list1.sort();
+        list2.sort();
+        let mut score = 0;
+        let mut i = 0;
+        let mut j = 0;
+        while i < list1.len() {
+            let number = list1[i];
+            let mut occurances = 0;
+            while j < list2.len() && list2[j] < number {
+                j += 1;
+            }
+            while j < list2.len() && list2[j] == number {
+                occurances += 1;
+                j += 1;
+            }
+            while i < list1.len() && list1[i] == number {
+                score += number * occurances;
+                i += 1;
+            }
+        }
+
+        Ok(score)
     }
 
     assert_eq!(0, part2(BufReader::new(TEST.as_bytes()))?);
