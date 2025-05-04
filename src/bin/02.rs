@@ -18,9 +18,9 @@ const TEST: &str = "\
 8 6 4 4 1
 1 3 6 7 9
 ";
-// const TEST2: &str = "\
-// 89 91 92 95 93 94
-// ";
+const TEST2: &str = "\
+89 91 92 95 93 94
+";
 
 fn main() -> Result<()> {
     start_day(DAY);
@@ -107,7 +107,7 @@ fn main() -> Result<()> {
     }
 
     assert_eq!(4, part2(BufReader::new(TEST.as_bytes()))?);
-    // assert_eq!(1, part2(BufReader::new(TEST2.as_bytes()))?);
+    assert_eq!(1, part2(BufReader::new(TEST2.as_bytes()))?);
 
     let input_file = BufReader::new(File::open(INPUT_FILE)?);
     let result = time_snippet!(part2(input_file)?);
